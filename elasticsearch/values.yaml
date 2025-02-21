@@ -1,0 +1,25 @@
+elasticsearch:
+  roles:
+    master:
+      replicas: 3
+    data:
+      replicas: 3
+    coordinating:
+      replicas: 3
+    
+  master:
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "100m"
+  data:
+    resources:
+      requests:
+        memory: "1Gi"
+        cpu: "200m"
+        
+  coordinating:
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "100m"

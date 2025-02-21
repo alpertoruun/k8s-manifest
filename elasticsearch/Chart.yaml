@@ -1,0 +1,8 @@
+apiVersion: v2
+name: elasticsearch-wrapper
+description: A Helm chart for Elasticsearch cluster
+version: 0.1.0
+dependencies:
+  - name: elasticsearch
+    version: 8.15.0
+    repository: https://helm.elastic.co
