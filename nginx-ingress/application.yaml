@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://kubernetes.github.io/ingress-nginx'
-    targetRevision: 4.9.0
-    chart: ingress-nginx
+    repoURL: 'https://github.com/alpertoruun/k8s-manifest.git' 
+    path: nginx-ingress 
+    targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
