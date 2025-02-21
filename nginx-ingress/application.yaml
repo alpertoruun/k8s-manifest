@@ -8,14 +8,10 @@ spec:
   source:
     repoURL: 'https://kubernetes.github.io/ingress-nginx'
     targetRevision: 4.9.0
-    helm:
-      values: |
-        controller:
-          service:
-            type: LoadBalancer
-          publishService:
-            enabled: true
     chart: ingress-nginx
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: ingress-nginx
