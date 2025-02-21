@@ -1,8 +1,7 @@
 rancher:
-  hostname: rancher.demo.com  
-  bootstrapPassword: admin 
+  hostname: 9.163.152.197.sslip.io  
+  bootstrapPassword: admin123
   ingress:
     tls:
-      source: letsEncrypt
-  letsEncrypt:
-    email: alpertorun4@hotmail.com
+      source: rancher
+    ingressClassName: nginx 
