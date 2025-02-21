@@ -10,8 +10,12 @@ spec:
     targetRevision: 4.9.0
     chart: ingress-nginx
     helm:
-      valueFiles:
-        - $values/nginx-ingress/values.yaml
+      values: |
+        controller:
+          service:
+            type: LoadBalancer
+          publishService:
+            enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx
