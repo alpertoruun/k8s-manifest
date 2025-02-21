@@ -1,25 +1,50 @@
 elasticsearch:
-  roles:
-    master:
-      replicas: 3
-    data:
-      replicas: 3
-    coordinating:
-      replicas: 3
+  masterService: elasticsearch-master
+  nodeGroup: "master"
+  
+  nodeSets:
+    - name: master
+      count: 3
+      config:
+        node.roles: ["master"]
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "100m"
     
-  master:
-    resources:
-      requests:
-        memory: "512Mi"
-        cpu: "100m"
-  data:
-    resources:
-      requests:
-        memory: "1Gi"
-        cpu: "200m"
-        
-  coordinating:
-    resources:
-      requests:
-        memory: "512Mi"
-        cpu: "100m"
+    - name: data
+      count: 3
+      config:
+        node.roles: ["data"]
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: "1Gi"
+                  cpu: "200m"
+    
+    - name: coordinating
+      count: 3
+      config:
+        node.roles: ["remote_cluster_client"]
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: "512Mi"
+                  cpu: "100m"
+
+  clusterName: "elasticsearch"
+  protocol: http
+  httpPort: 9200
+  transportPort: 9300
+  
+  minimumMasterNodes: 2
