@@ -4,5 +4,5 @@ description: A Helm chart for Elasticsearch cluster
 version: 0.1.0
 dependencies:
   - name: elasticsearch
-    version: v8.15.0
+    version: 8.5.1
     repository: https://helm.elastic.co
