@@ -8,10 +8,7 @@ kibana:
   elasticsearchCertificateSecret: elasticsearch-master-certs
   
   elasticsearchCredentials:
-    username: elastic
-    passwordSecret:
-      secretName: kibana-elasticsearch-credentials
-      key: password
+    secretName: elasticsearch-master-credentials
   
   ingress:
     enabled: true
