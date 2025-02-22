@@ -1,21 +1,15 @@
 kibana:
   elasticsearchHosts: "https://elasticsearch-master:9200"
   
-  # Security settings
-  security:
-    enabled: true
-    tls:
-      enabled: true
-      verificationMode: certificate
-  
-  elasticsearch:
-    ssl:
-      verificationMode: certificate
-      certificateAuthorities: "/usr/share/kibana/config/certs/ca.crt"
+  elasticsearchCertificateSecret: elasticsearch-master-certs
   
   ingress:
     enabled: true
     className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "rancher-ca"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     hosts:
       - host: kibana.9.163.152.197.sslip.io
         paths:
@@ -25,24 +19,14 @@ kibana:
       - secretName: kibana-tls
         hosts:
           - kibana.9.163.152.197.sslip.io
-
-  extraInitContainers:
-    - name: copy-elasticsearch-certs
-      image: busybox
-      command: ['sh', '-c', 'cp /usr/share/elasticsearch/config/certs/ca.crt /usr/share/kibana/config/certs/']
-      volumeMounts:
-        - name: elasticsearch-certs
-          mountPath: /usr/share/elasticsearch/config/certs
-        - name: kibana-certs
-          mountPath: /usr/share/kibana/config/certs
-
-  extraVolumes:
-    - name: elasticsearch-certs
-      secret:
-        secretName: elasticsearch-master-certs
-    - name: kibana-certs
-      emptyDir: {}
-
-  extraVolumeMounts:
-    - name: kibana-certs
-      mountPath: /usr/share/kibana/config/certs
+  
+  elasticsearchCredentials:
+    secretName: elasticsearch-master-credentials
+  
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
