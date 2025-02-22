@@ -5,4 +5,8 @@ rancher:
     tls:
       source: secret
       secretName: tls-rancher-ingress
-    ingressClassName: nginx 
+    annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    ingressClassName: nginx
