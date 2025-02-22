@@ -3,5 +3,6 @@ rancher:
   bootstrapPassword: admin123
   ingress:
     tls:
-      source: rancher
+      source: secret
+      secretName: tls-rancher-ingress
     ingressClassName: nginx 
