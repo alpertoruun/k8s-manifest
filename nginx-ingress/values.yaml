@@ -13,6 +13,11 @@ ingress-nginx:
       enable-real-ip: "true"
       proxy-buffer-size: "16k"
       proxy-body-size: "50m"
+      strict-ssl: "false"  
+      ssl-protocols: "TLSv1.2 TLSv1.3"  
+
+    extraArgs:
+      default-ssl-certificate: "cattle-system/tls-rancher" 
 
     metrics:
       enabled: true
