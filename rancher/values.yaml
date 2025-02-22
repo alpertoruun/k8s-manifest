@@ -13,4 +13,4 @@ rancher:
     ingressClassName: nginx
   replicas: 3
   tls: external
-  privateCA: true
+  privateCA: false
