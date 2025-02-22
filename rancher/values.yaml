@@ -1,5 +1,5 @@
 rancher:
-  hostname: 9.163.152.197.sslip.io  
+  hostname: rancher.9.163.152.197.sslip.io
   bootstrapPassword: admin123
   ingress:
     tls:
