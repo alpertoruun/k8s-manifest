@@ -4,7 +4,7 @@ rancher:
   ingress:
     tls:
       source: secret
-      secretName: tls-rancher-ingress
+      secretName: tls-rancher
     annotations:
       nginx.ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
