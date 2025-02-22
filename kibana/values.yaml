@@ -2,13 +2,22 @@ kibana:
   elasticsearchHosts: "https://elasticsearch-master:9200"
   
   elasticsearch:
+    hosts: ["https://elasticsearch-master:9200"]
     ssl:
       verificationMode: none
-      
+      certificateAuthorities: "/usr/share/kibana/config/certs/ca.crt"
+    
   elasticsearchCertificateSecret: elasticsearch-master-certs
-  
   elasticsearchCredentials:
     secretName: elasticsearch-master-credentials
+  
+  securityContext:
+    capabilities:
+      drop: ["ALL"]
+    runAsNonRoot: true
+    runAsUser: 1000
+  
+  protocol: https
   
   ingress:
     enabled: true
