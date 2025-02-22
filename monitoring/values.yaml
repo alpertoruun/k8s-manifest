@@ -1,0 +1,23 @@
+kube-prometheus-stack:
+  grafana:
+    enabled: true
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - grafana.9.163.152.197.sslip.io
+      tls:
+        - secretName: grafana-tls
+          hosts:
+            - grafana.9.163.152.197.sslip.io
+    
+  prometheus:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - prometheus.9.163.152.197.sslip.io
+      tls:
+        - secretName: prometheus-tls
+          hosts:
+            - prometheus.9.163.152.197.sslip.io
