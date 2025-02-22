@@ -4,12 +4,7 @@ kibana:
   elasticsearch:
     hosts: ["https://elasticsearch-master:9200"]
     ssl:
-      verificationMode: none
-      certificateAuthorities: "/usr/share/kibana/config/certs/ca.crt"
-    
-  elasticsearchCertificateSecret: elasticsearch-master-certs
-  elasticsearchCredentials:
-    secretName: elasticsearch-master-credentials
+      verificationMode: certificate
   
   securityContext:
     capabilities:
@@ -35,6 +30,32 @@ kibana:
       - secretName: kibana-tls
         hosts:
           - kibana.9.163.152.197.sslip.io
+  
+  extraVolumes:
+    - name: elasticsearch-certs
+      secret:
+        secretName: kibana-elasticsearch-certs
+    - name: kibana-tls
+      secret:
+        secretName: kibana-tls
+  
+  extraVolumeMounts:
+    - name: elasticsearch-certs
+      mountPath: /usr/share/kibana/config/certs/elastic
+      readOnly: true
+    - name: kibana-tls
+      mountPath: /usr/share/kibana/config/certs/kibana
+      readOnly: true
+  
+  kibanaConfig:
+    kibana.yml: |
+      server.ssl:
+        enabled: true
+        certificate: /usr/share/kibana/config/certs/kibana/tls.crt
+        key: /usr/share/kibana/config/certs/kibana/tls.key
+      elasticsearch.ssl:
+        certificateAuthorities: ["/usr/share/kibana/config/certs/elastic/ca.crt"]
+        verificationMode: certificate
   
   resources:
     requests:
