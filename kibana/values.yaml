@@ -4,8 +4,14 @@ kibana:
   elasticsearch:
     ssl:
       verificationMode: none
-    
+      
   elasticsearchCertificateSecret: elasticsearch-master-certs
+  
+  elasticsearchCredentials:
+    username: elastic
+    passwordSecret:
+      secretName: kibana-elasticsearch-credentials
+      key: password
   
   ingress:
     enabled: true
@@ -23,9 +29,6 @@ kibana:
       - secretName: kibana-tls
         hosts:
           - kibana.9.163.152.197.sslip.io
-  
-  elasticsearchCredentials:
-    secretName: elasticsearch-master-credentials
   
   resources:
     requests:
